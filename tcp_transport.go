@@ -61,6 +61,8 @@ func (tt *tcpTransport) ExecuteRequest(req *pdu) (res *pdu, err error) {
 
 // Reads a request from the socket.
 func (tt *tcpTransport) ReadRequest() (req *pdu, err error) {
+	var txnId	uint16
+
 	// set an i/o deadline on the socket (read and write)
 	err	= tt.socket.SetDeadline(time.Now().Add(tt.timeout))
 	if err != nil {
