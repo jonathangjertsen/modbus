@@ -97,7 +97,7 @@ func (tt *tcpTransport) readResponse() (res *pdu, err error) {
 
 	for {
 		// grab a frame
-		res, txnId, err	= tt.readMBAPFrame()
+		res, _, err	= tt.readMBAPFrame()
 
 		// ignore unknown protocol identifiers
 		if err == ErrUnknownProtocolId {
@@ -107,14 +107,6 @@ func (tt *tcpTransport) readResponse() (res *pdu, err error) {
 		// abort on any other erorr
 		if err != nil {
 			return
-		}
-
-		// ignore unknown transaction identifiers
-		if tt.lastTxnId != txnId {
-			tt.logger.Warningf("received unexpected transaction id " +
-					   "(expected 0x%04x, received 0x%04x)",
-					   tt.lastTxnId, txnId)
-			continue
 		}
 
 		break
