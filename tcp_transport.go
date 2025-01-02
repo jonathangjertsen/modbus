@@ -91,8 +91,6 @@ func (tt *tcpTransport) WriteResponse(res *pdu) (err error) {
 // Reads as many MBAP+modbus frames as necessary until either the response
 // matching tt.lastTxnId is received or an error occurs.
 func (tt *tcpTransport) readResponse() (res *pdu, err error) {
-	var txnId	uint16
-
 	for {
 		// grab a frame
 		res, _, err	= tt.readMBAPFrame()
